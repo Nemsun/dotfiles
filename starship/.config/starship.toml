@@ -1,0 +1,54 @@
+# ~/.config/starship.toml — TUYU
+
+palette = "tuyu"
+
+[palettes.tuyu]
+midnight = "#08284a"
+navy     = "#163b61"
+rain     = "#7ca8c7"
+teal     = "#a8d4d2"
+fog      = "#d8e8e2"
+lavender = "#b9a8e8"
+pink     = "#f6b4c9"
+yellow   = "#f8d66c"
+
+# Two lines: context above, bare umbrella below — input stays uncluttered
+format = """
+$directory$git_branch$git_status$python$nodejs$cmd_duration
+$character"""
+
+[directory]
+style = "bold rain"
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style)[$read_only](pink) "
+
+[git_branch]
+symbol = " "
+style = "lavender"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+style = "pink"
+format = "[$all_status$ahead_behind]($style)"
+
+[cmd_duration]
+min_time = 2000
+style = "yellow"
+format = "took [$duration]($style) "
+
+[python]
+symbol = " "
+style = "teal"
+format = "via [$symbol$version]($style) "
+
+[nodejs]
+symbol = " "
+style = "teal"
+format = "via [$symbol$version]($style) "
+
+# The prompt character: umbrella, naturally.
+# Teal when the last command succeeded, Hydrangea Pink when it failed.
+[character]
+success_symbol = "[☂](teal)"
+error_symbol = "[☂](pink)"

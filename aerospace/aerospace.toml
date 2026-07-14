@@ -1,0 +1,129 @@
+# ~/.aerospace.toml — TUYU
+
+config-version = 2
+
+# Launch the tmux rice session (fastfetch + shell) at startup;
+# the Ghostty rule below routes it to workspace 1.
+after-startup-command = [
+  'exec-and-forget open -na Ghostty --args -e ~/.config/tmux/rice-session.sh',
+]
+
+# Notify sketchybar whenever the focused workspace changes
+# so the Hydrangea Pink highlight stays in sync.
+exec-on-workspace-change = ['/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+start-at-login = true
+auto-reload-config = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 300
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+
+# The five workspaces the bar shows
+persistent-workspaces = ["1", "2", "3", "4", "5"]
+
+on-mode-changed = []
+focus-follows-mouse.enabled = false
+key-mapping.preset = 'qwerty'
+
+# Gaps between windows (inner) and monitor edges (outer)
+gaps.inner.horizontal = 10
+gaps.inner.vertical =   10
+gaps.outer.left =       10
+gaps.outer.bottom =     10
+gaps.outer.top =        10
+gaps.outer.right =      10
+
+# ── Dedicated apps per workspace ────────────────────────────────────
+# 1: desktop (clean, floating) · 2: Spotify · 3: VSCode · 4: Ghostty · 5: browser
+
+# App rules FIRST — aerospace runs only the first matching rule,
+# so the workspace-1 catch-all must come after them.
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 4'
+
+# Browser -> 5. Safari id below; swap for yours:
+#   Arc: company.thebrowser.Browser · Chrome: com.google.Chrome
+#   Firefox: org.mozilla.firefox   · Brave: com.brave.Browser
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace 5'
+
+# Catch-all LAST: anything unpinned that lands on workspace 1 floats
+[[on-window-detected]]
+if.workspace = '1'
+run = 'layout floating'
+
+# ── Main binding mode ───────────────────────────────────────────────
+[mode.main.binding]
+
+    # Layouts
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+
+    # Focus (vim-style, mirrors tmux prefix+hjkl one layer down)
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+
+    # Move windows
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    # Resize
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    # AeroSpace-native fullscreen: maximizes within the workspace,
+    # so the bar and workspace highlight survive (unlike the green button)
+    alt-f = 'fullscreen'
+
+    # Workspaces
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+
+    alt-tab = 'workspace-back-and-forth'
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    alt-shift-semicolon = 'mode service'
+
+# ── Service binding mode ────────────────────────────────────────────
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main'] # reset layout
+    f = ['layout floating tiling', 'mode main'] # toggle floating/tiling
+    backspace = ['close-all-windows-but-current', 'mode main']
+
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']

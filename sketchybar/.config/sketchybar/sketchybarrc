@@ -1,0 +1,131 @@
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+export PATH="/opt/homebrew/bin:$PATH"
+
+source "$CONFIG_DIR/colors.sh"
+
+FONT="Maple Mono NF"
+
+bar=(
+  height=30
+  blur_radius=30
+  position=top
+  sticky=on
+  display=main
+  topmost=window
+  color=$BAR_COLOR
+)
+sketchybar --bar "${bar[@]}"
+
+# Items carry no individual pill; the three group brackets draw them.
+default=(
+  padding_left=4
+  padding_right=4
+  icon.font="$FONT:Regular:18.0"
+  label.font="$FONT:Bold:15.0"
+  icon.color=$ICON_COLOR
+  label.color=$LABEL_COLOR
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+  background.drawing=off
+)
+sketchybar --default "${default[@]}"
+
+# Shared pill style for the three group brackets
+GROUP_STYLE=(
+  background.color=$ITEM_BG_COLOR
+  background.border_width=1
+  background.border_color=$ITEM_BORDER_COLOR
+  background.corner_radius=8
+  background.height=30
+)
+
+##### LEFT PILL: umbrella logo + workspaces #####
+sketchybar --add item umbrella left \
+           --set umbrella icon=􀙖 icon.font="$FONT:Regular:18.0" \
+                       label.drawing=off padding_left=8
+
+sketchybar --add event aerospace_workspace_change
+for sid in 1 2 3 4 5; do
+  sketchybar --add item space.$sid left \
+             --subscribe space.$sid aerospace_workspace_change front_app_switched \
+             --set space.$sid \
+               icon="$sid" \
+               icon.padding_right=8 \
+               label.font="sketchybar-app-font:Regular:16.0" \
+               label.padding_left=8 \
+               label.y_offset=-1 \
+               background.color=$TRANSPARENT \
+               click_script="aerospace workspace $sid" \
+               script="$PLUGIN_DIR/aerospace.sh $sid"
+done
+
+sketchybar --add bracket left_group umbrella '/space\..*/' \
+           --set left_group "${GROUP_STYLE[@]}"
+
+##### MEDIA PILL: notch-aware 'q' position, linked to Spotify #####
+# Layout: buttons | title
+# Spotify broadcasts this notification on every play/pause/track change
+sketchybar --add event spotify_change "com.spotify.client.PlaybackStateChanged"
+
+sketchybar --add item media.title q \
+           --set media.title icon=":spotify:" \
+               icon.font="sketchybar-app-font:Regular:16.0" \
+               icon.color=$MIST_TEAL \
+               label="Nothing playing" \
+               label.font="$FONT:Bold:12.0" \
+               label.max_chars=24 \
+               scroll_texts=on \
+               script="$PLUGIN_DIR/spotifybar.sh" \
+               click_script="open -a Spotify" \
+           --subscribe media.title spotify_change
+ 
+sketchybar --add bracket center_group '/media\..*/' \
+           --set center_group "${GROUP_STYLE[@]}"
+
+##### RIGHT PILL: volume | battery | date #####
+# Right items stack right-to-left: first added = rightmost.
+sketchybar --add item date right \
+           --set date update_freq=10 \
+               icon=􀉉 \
+               icon.font="SF Pro:Regular:15.0" \
+               icon.color=$ICON_COLOR \
+               script="$PLUGIN_DIR/calendar.sh" \
+               click_script="open -a Calendar"
+
+sketchybar --add item battery right \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --subscribe battery system_woke power_source_change mouse.clicked
+
+volume_slider=(
+  script="$PLUGIN_DIR/volume.sh"
+  updates=on
+  padding_left=0
+  padding_right=0
+  icon.drawing=off
+  label.drawing=off
+  slider.highlight_color=$RAIN_BLUE
+  slider.knob.drawing=off
+  slider.background.height=8
+  slider.background.corner_radius=3
+  slider.background.color=0x40${FOG_WHITE#0xff}
+)
+
+sketchybar --add item volume_icon right \
+           --set volume_icon icon=󰕾 label="--%" padding_left=8 \
+               script="$PLUGIN_DIR/volume.sh" \
+           --subscribe volume_icon mouse.entered mouse.exited \
+           --add slider volume_slider right \
+           --set volume_slider "${volume_slider[@]}" \
+           --subscribe volume_slider volume_change mouse.clicked mouse.entered mouse.exited
+
+sketchybar --add bracket right_group volume_slider volume_icon battery date \
+           --set right_group "${GROUP_STYLE[@]}"
+
+##### Init #####
+sketchybar --update
+sketchybar --hotload true
+sketchybar --trigger aerospace_workspace_change \
+  FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"

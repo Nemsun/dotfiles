@@ -1,0 +1,54 @@
+# ~/.config/ghostty/config — TUYU
+
+# ── Font ────────────────────────────────────────────────────────────
+font-family = Maple Mono NF
+font-size = 14
+
+# ── Core colors ─────────────────────────────────────────────────────
+background = #08284a
+foreground = #d8e8e2
+
+cursor-color = #f8d66c
+cursor-text = #08284a
+
+selection-background = #163b61
+selection-foreground = #d8e8e2
+
+# ── ANSI palette (0-7 normal, 8-15 bright) ─────────────────────────
+# TUYU has no true red/green, so Hydrangea Pink plays red and
+# Mist Teal plays green/cyan. Brights are ~20% lightened variants.
+palette = 0=#163b61
+palette = 1=#f6b4c9
+palette = 2=#a8d4d2
+palette = 3=#f8d66c
+palette = 4=#7ca8c7
+palette = 5=#b9a8e8
+palette = 6=#a8d4d2
+palette = 7=#d8e8e2
+palette = 8=#506c88
+palette = 9=#f8c3d4
+palette = 10=#bfdedc
+palette = 11=#fadf8e
+palette = 12=#99bbd4
+palette = 13=#c9bcee
+palette = 14=#bfdedc
+palette = 15=#eaf3ef
+
+# ── Window ──────────────────────────────────────────────────────────
+# Slight translucency + blur for the glassy look over the wallpaper
+background-opacity = 0.2
+background-blur-radius = 20
+
+window-padding-x = 12
+window-padding-y = 10
+
+# Hidden titlebar plays nicest with AeroSpace tiling
+macos-titlebar-style = hidden
+
+# cursor
+cursor-style = underline
+# ── Behavior ────────────────────────────────────────────────────────
+# Uncomment if you ever want ⌥-combos sent to terminal apps instead
+# of typing special characters (AeroSpace still intercepts its own
+# binds before the terminal sees them):
+# macos-option-as-alt = true

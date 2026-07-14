@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+# Color Palette [MAIN]
+DEEP_MIDNIGHT_BLUE=0xff08284a
+RAINY_NAVY=0xff163b61
+MIST_TEAL=0xffa8d4d2
+FOG_WHITE=0xffd8e8e2
+TRANSPARENT=0x00000000
+
+# Color Palette [ACCENTS]
+UMBRELLA_YELLOW=0xfff8d66c
+HYDRANGEA_PINK=0xfff6b4c9
+LAVENDER=0xffb9a8e8
+RAIN_BLUE=0xff7ca8c7
+
+# General Bar Colors
+BAR_COLOR=0x10${DEEP_MIDNIGHT_BLUE#0xff}
+ICON_COLOR=$MIST_TEAL
+LABEL_COLOR=$FOG_WHITE
+
+# Derived (alpha variants) — first byte is alpha
+ITEM_BG_COLOR=0x30${RAINY_NAVY#0xff}         # Rainy Navy @ ~19%
+ITEM_BORDER_COLOR=$MIST_TEAL
+SPACE_BG_COLOR=0x40${RAIN_BLUE#0xff}         # Rain Blue @ 25%
+SPACE_ACTIVE_BG=0x40${UMBRELLA_YELLOW#0xff}  # Umbrella Yellow @ 25%

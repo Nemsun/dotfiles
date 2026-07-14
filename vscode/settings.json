@@ -1,0 +1,118 @@
+// TUYU for VSCode — merge into settings.json
+// (Cmd+Shift+P -> "Preferences: Open User Settings (JSON)")
+{
+  // Base theme the overrides sit on
+  "workbench.colorTheme": "Dark Modern",
+
+  // ── Font ──────────────────────────────────────────────────────────
+  "editor.fontFamily": "Maple Mono NF",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontFamily": "Maple Mono NF",
+
+  // ── Workbench (UI chrome) ─────────────────────────────────────────
+  "workbench.colorCustomizations": {
+    // Editor surface
+    "editor.background": "#08284a",
+    "editor.foreground": "#d8e8e2",
+    "editorLineNumber.foreground": "#506c88",
+    "editorLineNumber.activeForeground": "#a8d4d2",
+    "editorCursor.foreground": "#f8d66c",
+    "editor.selectionBackground": "#163b61",
+    "editor.lineHighlightBackground": "#0d3156",
+    "editorIndentGuide.background1": "#163b61",
+    "editorIndentGuide.activeBackground1": "#7ca8c7",
+
+    // Chrome: progressively darker navies frame the editor
+    "sideBar.background": "#062038",
+    "sideBar.foreground": "#d8e8e2",
+    "activityBar.background": "#051b2e",
+    "activityBar.foreground": "#a8d4d2",
+    "activityBarBadge.background": "#f8d66c",
+    "activityBarBadge.foreground": "#08284a",
+    "titleBar.activeBackground": "#051b2e",
+    "titleBar.activeForeground": "#d8e8e2",
+    "statusBar.background": "#163b61",
+    "statusBar.foreground": "#d8e8e2",
+    "statusBar.noFolderBackground": "#163b61",
+    "statusBar.debuggingBackground": "#f6b4c9",
+    "statusBar.debuggingForeground": "#08284a",
+
+    // Tabs
+    "editorGroupHeader.tabsBackground": "#062038",
+    "tab.activeBackground": "#08284a",
+    "tab.activeForeground": "#d8e8e2",
+    "tab.activeBorderTop": "#f8d66c",
+    "tab.inactiveBackground": "#062038",
+    "tab.inactiveForeground": "#7ca8c7",
+
+    // Lists, inputs, accents
+    "list.activeSelectionBackground": "#163b61",
+    "list.activeSelectionForeground": "#d8e8e2",
+    "list.hoverBackground": "#0d3156",
+    "input.background": "#062038",
+    "input.foreground": "#d8e8e2",
+    "focusBorder": "#a8d4d2",
+    "button.background": "#7ca8c7",
+    "button.foreground": "#08284a",
+    "badge.background": "#f8d66c",
+    "badge.foreground": "#08284a",
+    "panel.background": "#062038",
+    "panelTitle.activeBorder": "#f8d66c",
+
+    // Integrated terminal — mirrors the Ghostty palette exactly
+    "terminal.background": "#08284a",
+    "terminal.foreground": "#d8e8e2",
+    "terminalCursor.foreground": "#f8d66c",
+    "terminal.ansiBlack": "#163b61",
+    "terminal.ansiRed": "#f6b4c9",
+    "terminal.ansiGreen": "#a8d4d2",
+    "terminal.ansiYellow": "#f8d66c",
+    "terminal.ansiBlue": "#7ca8c7",
+    "terminal.ansiMagenta": "#b9a8e8",
+    "terminal.ansiCyan": "#a8d4d2",
+    "terminal.ansiWhite": "#d8e8e2",
+    "terminal.ansiBrightBlack": "#506c88",
+    "terminal.ansiBrightRed": "#f8c3d4",
+    "terminal.ansiBrightGreen": "#bfdedc",
+    "terminal.ansiBrightYellow": "#fadf8e",
+    "terminal.ansiBrightBlue": "#99bbd4",
+    "terminal.ansiBrightMagenta": "#c9bcee",
+    "terminal.ansiBrightCyan": "#bfdedc",
+    "terminal.ansiBrightWhite": "#eaf3ef"
+  },
+
+  // ── Syntax colors ─────────────────────────────────────────────────
+  "editor.tokenColorCustomizations": {
+    "comments": { "foreground": "#7ca8c7", "fontStyle": "italic" },
+    "strings": "#f8d66c",
+    "keywords": "#b9a8e8",
+    "functions": "#a8d4d2",
+    "numbers": "#f6b4c9",
+    "types": "#bfdedc",
+    "variables": "#d8e8e2",
+    "textMateRules": [
+      {
+        "scope": ["constant.language", "keyword.operator"],
+        "settings": { "foreground": "#b9a8e8" }
+      },
+      {
+        "scope": ["entity.name.tag", "support.type.property-name"],
+        "settings": { "foreground": "#a8d4d2" }
+      },
+      {
+        "scope": ["invalid", "invalid.illegal"],
+        "settings": { "foreground": "#f6b4c9" }
+      }
+    ]
+  },
+  "workbench.startupEditor": "none",
+  "chat.titleBar.openInAgentsWindow.enabled": false,
+  "chat.titleBar.signIn.enabled": false,
+  "workbench.browser.showInTitleBar": false,
+  "workbench.activityBar.location": "top",
+  "workbench.sideBar.location": "right",
+  "chat.disableAIFeatures": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "security.workspace.trust.untrustedFiles": "open",
+}
