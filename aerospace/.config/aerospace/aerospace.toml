@@ -1,4 +1,4 @@
-# ~/.aerospace.toml — TUYU
+# ~/.config/aerospace/aerospace.toml — TUYU
 
 config-version = 2
 
@@ -9,7 +9,6 @@ after-startup-command = [
 ]
 
 # Notify sketchybar whenever the focused workspace changes
-# so the Hydrangea Pink highlight stays in sync.
 exec-on-workspace-change = ['/bin/bash', '-c',
   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
