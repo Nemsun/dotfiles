@@ -60,15 +60,20 @@ run = 'move-node-to-workspace 4'
 
 # Browser -> 5. Safari id below; swap for yours:
 #   Arc: company.thebrowser.Browser · Chrome: com.google.Chrome
-#   Firefox: org.mozilla.firefox   · Brave: com.brave.Browser
+#   Firefox: org.mozilla.firefox   · Brave: com.brave.Browser · Safari: com.apple.Safari · Zen: app.zen-browser.zen
 [[on-window-detected]]
-if.app-id = 'com.apple.Safari'
-run = 'move-node-to-workspace 5'
+if.app-id = 'app.zen-browser.zen'
+run = ['move-node-to-workspace 5', 'layout floating']
 
 # Catch-all LAST: anything unpinned that lands on workspace 1 floats
 [[on-window-detected]]
 if.workspace = '1'
 run = 'layout floating'
+
+# Finder remains floating
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
 
 # ── Main binding mode ───────────────────────────────────────────────
 [mode.main.binding]
